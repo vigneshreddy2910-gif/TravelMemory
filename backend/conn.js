@@ -1,10 +1,14 @@
-const mongoose = require('mongoose')
-const URL = process.env.MONGO_URI
+const mongoose = require('mongoose');
 
-mongoose.connect(URL)
-mongoose.Promise = global.Promise
+const URL = process.env.MONGO_URI;
 
-const db = mongoose.connection
-db.on('error', console.error.bind(console, 'DB ERROR: '))
+mongoose
+  .connect(URL)
+  .then(() => {
+    console.log('✅ MongoDB Connected');
+  })
+  .catch((err) => {
+    console.error('❌ MongoDB Connection Error:', err);
+  });
 
-module.exports = {db, mongoose}
+module.exports = mongoose;
